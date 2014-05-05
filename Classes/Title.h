@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include <WebSocket.h>
+#include "sqlite3.h"
 
 USING_NS_CC;
 using namespace network;
@@ -22,6 +23,13 @@ public:
     //Properties
     cocos2d::Size window_size;
     cocos2d::LabelTTF* status;
+    
+    //DBの存在フラグ
+    bool isExistDB();
+    
+    //sqlite3
+    sqlite3* useDataBase = NULL;
+    char* errorMessage = NULL;
     
     //タイトル作成
     void crateTitle();

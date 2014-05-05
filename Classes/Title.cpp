@@ -3,7 +3,7 @@
 //コンストラクタ
 Title::Title()
 {
-    if (websocket) websocket->close();
+    //if (websocket) websocket->close();
 }
 
 
@@ -27,8 +27,48 @@ bool Title::init()
     //窓サイズを取得
     window_size = Director::getInstance()->getWinSize();
     
+    //ラベルの作成
+    status = LabelTTF::create("接続中...", "Arial", 15);
+    status->setPosition(Point(window_size.width / 2 , window_size.height / 100 * 10));
+    this->addChild(status);
+    
     //タイトルの読み込み
     this->crateTitle();
+    
+    //内部DBの存在チェック
+    status->setString("DB構成...");
+    if(this->isExistDB()){
+        
+        //DB作成中
+        
+        //Story作成
+        status->setString("DB作成中...story");
+        auto create_sql = "CREATE TABLE IF NOT EXISTS `story` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`hash` varchar(128)  NOT NULL ,`title` varchar(256) NOT NULL,`text` text NOT NULL,`length` varchar(16) NOT NULL,`type` varchar(16)  NOT NULL ,`number` int(2) NOT NULL,`max_number` int(2) NOT NULL DEFAULT '1',`report_id` int(10) DEFAULT NULL ,`is_release` int(2) NOT NULL DEFAULT '0' ,`is_selection` int(2) NOT NULL DEFAULT '0',`created_at` int(11) NOT NULL DEFAULT '0',`updated_at` int(11) NOT NULL DEFAULT '0',`deleted_at` int(11) NOT NULL DEFAULT '0' ,`active` int(2) NOT NULL DEFAULT '1')";
+        
+        auto sts = sqlite3_exec(useDataBase, create_sql, NULL, NULL, &errorMessage );
+        if( sts != SQLITE_OK ) CCLOG("create table failed : %s", errorMessage);
+        status->setString("DB作成中...storyOK");
+        
+        //Story_Vars作成
+        status->setString("DB作成中...story_vars");
+        auto story_vars = "CREATE TABLE IF NOT EXISTS `story_words` (`id` INTEGER PRIMARY KEY AUTOINCREMENT,`story_id` int(10) NOT NULL ,`story_hash` varchar(64) NOT NULL,`word` varchar(32) NOT NULL,`push_count` int(5) NOT NULL DEFAULT '0',`last_ip` varchar(32) DEFAULT NULL,`is_enable` int(2) NOT NULL DEFAULT '0',`created_at` int(11) NOT NULL DEFAULT '0',`updated_at` int(11) NOT NULL DEFAULT '0',`deleted_at` int(11) NOT NULL DEFAULT '0',`active` int(2) NOT NULL DEFAULT '1')";
+        auto sts2 = sqlite3_exec(useDataBase, story_vars, NULL, NULL, &errorMessage );
+        if( sts2 != SQLITE_OK ) CCLOG("create table failed : %s", errorMessage);
+        
+        auto story_vars_index_1 = "CREATE INDEX `story_id` ON story_words(`story_id`)";
+        auto sts3 = sqlite3_exec(useDataBase, story_vars_index_1, NULL, NULL, &errorMessage );
+        if( sts3 != SQLITE_OK ) CCLOG("create index failed : %s", errorMessage);
+        
+        auto story_vars_index_2 = "CREATE INDEX `tag` ON story_words(`word`)";
+        auto sts4 = sqlite3_exec(useDataBase, story_vars_index_2, NULL, NULL, &errorMessage );
+        if( sts4 != SQLITE_OK ) CCLOG("create index failed : %s", errorMessage);
+        
+        auto story_vars_index_3 = "CREATE INDEX `story_hash` ON story_words(`story_hash`)";
+        auto sts5 = sqlite3_exec(useDataBase, story_vars_index_3, NULL, NULL, &errorMessage );
+        if( sts5 != SQLITE_OK ) CCLOG("create index failed : %s", errorMessage);
+        
+        status->setString("DB作成中...story_varsOK");
+    }
     
     //外部DBとの接続
     this->loadStory();
@@ -37,51 +77,60 @@ bool Title::init()
     return true;
 }
 
+
+//DBが存在しているのか
+bool Title::isExistDB()
+{
+    //DBファイルの保存先のパス
+    auto filePath = FileUtils::getInstance()->getWritablePath();
+    filePath.append("Abyss.db");
+    
+    //Open
+    auto status = sqlite3_open(filePath.c_str(), &useDataBase);
+    
+    //ステータスが0以外の場合はエラーを表示
+    if (status != SQLITE_OK) return false;
+    
+    return true;
+}
+
 //ストーリーのロード
 void Title::loadStory()
 {
-    
-    // ステータスラベル作成
-    
-    status = LabelTTF::create("オープン中...", "Arial", 15);
-    status->setPosition(Point(window_size.width / 2 , window_size.height - 20));
-    this->addChild(status);
-    
-    // WebSocket生成
+    //WebSocket生成
     websocket = new WebSocket();
     websocket->init(*this, "ws://raharu.net:8080/echo");
 }
 
 void Title::onOpen(WebSocket* ws)
 {
-    status->setString("オープンしました");
+    status->setString("接続に成功しました");
     scheduleOnce(schedule_selector(Title::sendMessage), 1.0f);
 }
 
 void Title::onMessage(WebSocket* ws, const WebSocket::Data& data)
 {
-    String *text = String::createWithFormat("response msg: %s", data.bytes);
+    auto *text = String::createWithFormat("%s", data.bytes);
     status->setString(text->getCString());
 }
 
 void Title::onClose(WebSocket* ws)
 {
     websocket = nullptr;
-    status->setString("クローズしました");
+    status->setString("Closed connection");
 }
 
 void Title::onError(WebSocket* ws, const WebSocket::ErrorCode& error)
 {
     char buf[100] = {0};
-    sprintf(buf, "エラーが発生しました code: %d", error);
+    sprintf(buf, "Error code: %d", error);
     status->setString(buf);
 }
 
 void Title::sendMessage(float dt)
 {
     if (websocket->getReadyState() == WebSocket::State::OPEN){
-        status->setString("メッセージを送信しました");
-        websocket->send("Hello WebSocket,\nI'm a text message.");
+        websocket->send("Loading...\n初期処理には数分かかる事があります\n通信環境の良い環境で行ってください");
     }
 }
 
