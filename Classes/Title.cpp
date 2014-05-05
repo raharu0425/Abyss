@@ -20,6 +20,10 @@ bool Title::init()
     
     //タイトルの読み込み
     this->crateTitle();
+    
+    //外部DBとの接続
+    //this->loadDataBase();
+    
     return true;
 }
 
