@@ -2,22 +2,24 @@
 #define __TITLE_SCENE_H__
 
 #include "cocos2d.h"
-#include <WebSocket.h>
 #include "sqlite3.h"
+#include <HttpRequest.h>
+#include <HttpClient.h>
+#include "TitleConditionManager.h"
 
 USING_NS_CC;
 using namespace network;
 
-class Title : public cocos2d::Layer, WebSocket::Delegate
+class Title : public cocos2d::Layer
 {
-    //webSocket
-    WebSocket* websocket;
-    
+    UserDefault* userDefault;
+    TitleConditionManager* sceneCondition;
+    Value max_id;
+    Value default_max_id;
+
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
-    Title();
-    //~Title();
     CREATE_FUNC(Title);
     
     //Properties
@@ -26,6 +28,7 @@ public:
     
     //DBの存在フラグ
     bool isExistDB();
+    void createDB();
     
     //sqlite3
     sqlite3* useDataBase = NULL;
@@ -34,17 +37,30 @@ public:
     //タイトル作成
     void crateTitle();
     
-    //外部サーバーとの接続
-    void loadStory();
+    //コールバック
+    void onHttpRequestCompleted(HttpClient* sender, HttpResponse* response);
+    void onStoryMaxCheck(HttpClient* sender, HttpResponse* response);
+    void onStoryIds(HttpClient* sender, HttpResponse* response);
+    void onStoryImport(HttpClient* sender, HttpResponse* response);
     
-    //webSocket
-    virtual void onOpen(WebSocket* ws);
-    virtual void onMessage(WebSocket* ws, const WebSocket::Data& data);
-    virtual void onClose(WebSocket* ws);
-    virtual void onError(WebSocket* ws, const WebSocket::ErrorCode& error);
-    void sendMessage(float dt);
+    //story_idの取得
+    int getDefaultStroyId();
+    
+    //DBの存在チェック
+    void dbCheck();
+    
+    //ストーリIDの読み込み
+    void loadStoryMax();
+    
+    //足りないIDを補完
+    void loadStoryIds();
+    
+    //ストーリーの読み込み
+    void loadStory(std::string);
     
     
+    //フレーム処理
+    void update(float delta);
 };
 
 #endif // __TITLE_SCENE_H__
