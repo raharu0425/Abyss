@@ -21,6 +21,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		342A94A2191A3B900006AB6F /* TitleConditionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342A94A0191A3B900006AB6F /* TitleConditionManager.cpp */; };
+		342A94AC191C7CAF0006AB6F /* HTTPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342A94AA191C7CAF0006AB6F /* HTTPManager.cpp */; };
+		342A94AF191CC55A0006AB6F /* StoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342A94AD191CC55A0006AB6F /* StoryManager.cpp */; };
 		342E9E17191781A600C08852 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 342E9E16191781A600C08852 /* libsqlite3.0.dylib */; };
 		348EDC2C191256BF00DBF75A /* Title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 348EDC2A191256BF00DBF75A /* Title.cpp */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
@@ -175,6 +177,10 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		342A94A0191A3B900006AB6F /* TitleConditionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleConditionManager.cpp; path = ../Classes/TitleConditionManager.cpp; sourceTree = "<group>"; };
 		342A94A1191A3B900006AB6F /* TitleConditionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleConditionManager.h; path = ../Classes/TitleConditionManager.h; sourceTree = "<group>"; };
+		342A94AA191C7CAF0006AB6F /* HTTPManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HTTPManager.cpp; path = ../Classes/HTTPManager.cpp; sourceTree = "<group>"; };
+		342A94AB191C7CAF0006AB6F /* HTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPManager.h; path = ../Classes/HTTPManager.h; sourceTree = "<group>"; };
+		342A94AD191CC55A0006AB6F /* StoryManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoryManager.cpp; path = ../Classes/StoryManager.cpp; sourceTree = "<group>"; };
+		342A94AE191CC55A0006AB6F /* StoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoryManager.h; path = ../Classes/StoryManager.h; sourceTree = "<group>"; };
 		342E9E16191781A600C08852 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
 		342E9E23191892DE00C08852 /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = picojson.h; path = ../Classes/picojson.h; sourceTree = "<group>"; };
 		348EDC2A191256BF00DBF75A /* Title.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Title.cpp; path = ../Classes/Title.cpp; sourceTree = "<group>"; };
@@ -273,6 +279,10 @@
 				342A94A0191A3B900006AB6F /* TitleConditionManager.cpp */,
 				342A94A1191A3B900006AB6F /* TitleConditionManager.h */,
 				342E9E23191892DE00C08852 /* picojson.h */,
+				342A94AA191C7CAF0006AB6F /* HTTPManager.cpp */,
+				342A94AB191C7CAF0006AB6F /* HTTPManager.h */,
+				342A94AD191CC55A0006AB6F /* StoryManager.cpp */,
+				342A94AE191CC55A0006AB6F /* StoryManager.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -567,10 +577,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				348EDC2C191256BF00DBF75A /* Title.cpp in Sources */,
+				342A94AF191CC55A0006AB6F /* StoryManager.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				342A94AC191C7CAF0006AB6F /* HTTPManager.cpp in Sources */,
 				342A94A2191A3B900006AB6F /* TitleConditionManager.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
 			);

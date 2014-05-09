@@ -34,8 +34,7 @@ public:
     //ProcessWork
     enum kProcess{
         kProcessNone = 1,
-        kProcessDbCheck,
-        kProcessStoryIdCheck
+        kProcessDbCheck
     };
     
     //Method
@@ -61,7 +60,6 @@ public:
     //Process
     bool isProcessNone();
     bool isProcessDbCheck();
-    bool isProcessStoryIdCheck();
     
 };
 

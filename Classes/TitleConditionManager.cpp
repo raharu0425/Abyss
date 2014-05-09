@@ -47,4 +47,3 @@ bool TitleConditionManager::isLoadStory() {return this->_loading == kLoadStory;}
 //処理分類
 bool TitleConditionManager::isProcessNone() {return this->_processing == kProcessNone;}
 bool TitleConditionManager::isProcessDbCheck() {return this->_processing == kProcessDbCheck;}
-bool TitleConditionManager::isProcessStoryIdCheck() {return this->_processing == kProcessStoryIdCheck;}
