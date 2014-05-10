@@ -7,6 +7,9 @@
 //
 
 #include "StoryManager.h"
+#include "picojson.h"
+
+
 
 static StoryManager *s_Shared = nullptr;
 
@@ -63,4 +66,46 @@ void StoryManager::createInitTables()
     auto story_vars_index_3 = "CREATE INDEX `story_hash` ON story_words(`story_hash`)";
     auto sts5 = sqlite3_exec(useDataBase, story_vars_index_3, NULL, NULL, &errorMessage );
     if( sts5 != SQLITE_OK ) CCLOG("create index failed : %s", errorMessage);
+}
+
+
+//ストーリーの作成
+void StoryManager::addStory(picojson::value pico_value)
+{
+    sqlite3_stmt* stmt;
+    char* sql = "INSERT INTO `story` (`id`, `hash`, `title`, `text`, `length`, `type`, `number`, `max_number`, `created_at`, `updated_at`) VALUES(?,?,?,?,?,?,?,?,?,?)";
+    const char *pzTest;
+    sqlite3_prepare_v2(useDataBase, sql, std::strlen(sql), &stmt, &pzTest);
+    sqlite3_reset(stmt);
+    
+    //取得
+    picojson::object& record = pico_value.get<picojson::object>();
+    auto id = Value(record["id"].get<std::string>());
+    std::string hash = record["hash"].get<std::string>();
+    std::string title = record["title"].get<std::string>();
+    std::string text = record["text"].get<std::string>();
+    std::string length = record["length"].get<std::string>();
+    auto type = Value(record["type"].get<std::string>());
+    auto number = Value(record["number"].get<std::string>());
+    auto max_number = Value(record["max_number"].get<std::string>());
+    auto created_at = Value(record["created_at"].get<std::string>());
+    auto updated_at = Value(record["updated_at"].get<std::string>());
+    
+    CCLOG("id:%d", id.asInt());
+    CCLOG("hash:%s", hash.c_str());
+    
+    sqlite3_bind_int(stmt, 1, id.asInt());
+    sqlite3_bind_text(stmt, 2, hash.c_str(), std::strlen(hash.c_str()), 0);
+    sqlite3_bind_text(stmt, 3, title.c_str(), std::strlen(title.c_str()), 0);
+    sqlite3_bind_text(stmt, 4, text.c_str(), std::strlen(text.c_str()), 0);
+    sqlite3_bind_text(stmt, 5, length.c_str(), std::strlen(length.c_str()), 0);
+    sqlite3_bind_int(stmt, 6, type.asInt());
+    sqlite3_bind_int(stmt, 7, number.asInt());
+    sqlite3_bind_int(stmt, 8, max_number.asInt());
+    sqlite3_bind_int(stmt, 9, created_at.asInt());
+    sqlite3_bind_int(stmt, 10, updated_at.asInt());
+    
+    // stmtのSQLを実行
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
 }

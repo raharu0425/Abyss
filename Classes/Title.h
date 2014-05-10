@@ -49,6 +49,7 @@ public:
     
     //フレーム処理
     void update(float delta);
+    void complted(float delta);
 };
 
 #endif // __TITLE_SCENE_H__

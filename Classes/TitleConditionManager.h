@@ -20,7 +20,8 @@ public:
     enum kCondition{
         kConditionIdle = 1,
         kConditionLoading,
-        kConditionProcessing
+        kConditionProcessing,
+        kConditionCompleted
     };
     
     //LoadingWork
@@ -50,6 +51,7 @@ public:
     bool isConditionIdle();
     bool isConditionLoading();
     bool isConditionProcessing();
+    bool isConditionCompleted();
     
     //Load
     bool isLoadNone();

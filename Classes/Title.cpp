@@ -1,4 +1,5 @@
 #include "Title.h"
+#include "Overview.h"
 #include "picojson.h"
 
 using namespace picojson;
@@ -27,6 +28,9 @@ bool Title::init()
     
     //userDefaultの読み込み
     userDefault = UserDefault::getInstance();
+    
+    //リセットフラグ
+    //userDefault->setIntegerForKey("story_max", 0);
     
     
     //窓サイズを取得
@@ -66,7 +70,15 @@ void Title::update(float delta)
         if(sceneCondition->isProcessDbCheck()){
             this->dbCheck();
         }
+    }else if(sceneCondition->isConditionCompleted()){
+        
     }
+}
+
+//シーンの切り替え
+void Title::complted(float delta)
+{
+    Director::getInstance()->replaceScene(TransitionFade::create(2.0f, Overview::createScene()));
 }
 
 //DBの存在チェック
@@ -100,10 +112,15 @@ void Title::onStoryMaxCheck(HttpClient* sender, HttpResponse* response)
     default_max_id= Value(userDefault->getIntegerForKey("story_max", 0));
     
     //怖い話のID配列を取得
-    if(max_id.asInt() > default_max_id.asInt()){
+    if(max_id.asInt() != default_max_id.asInt()){
         sceneCondition->setCondition(TitleConditionManager::kConditionLoading);
         sceneCondition->setLoading(TitleConditionManager::kLoadStoryIds);
+        return;
     }
+    
+    //シーン遷移
+    status->removeFromParentAndCleanup(true);
+    scheduleOnce(schedule_selector(Title::complted), 2.0f);
 }
 
 //取得していないIDSの作成
@@ -145,7 +162,6 @@ void Title::onStoryImport(HttpClient* sender, HttpResponse* response)
 {
     auto json_value = httpManager->getJsonByResponseData(response);
     picojson::object& record = json_value.get<picojson::object>();
-    auto title = Value(record["title"].get<std::string>());
     auto story_id = Value(record["id"].get<std::string>());
     
     //ステータス
@@ -153,8 +169,15 @@ void Title::onStoryImport(HttpClient* sender, HttpResponse* response)
     msg += story_id.asString();
     status->setString(msg);
     
+    storyManager->addStory(json_value);
+    
+    //取り込んだ所のIDを保存
+    userDefault->setIntegerForKey("story_max", story_id.asInt());
+    
+    //完了
     if(max_id.asInt() == story_id.asInt()){
-        status->setString("インポート完了");
+        status->removeFromParentAndCleanup(true);
+        scheduleOnce(schedule_selector(Title::complted), 2.0f);
     }
 }
 

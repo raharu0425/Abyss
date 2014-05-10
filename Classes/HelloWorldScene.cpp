@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "picojson.h"
+#include "sqlite3.h"
 
 Scene* HelloWorld::createScene()
 {
@@ -50,6 +51,17 @@ void HelloWorld::onHttpRequestCallBack(HttpClient* sender, HttpResponse* respons
     
     picojson::object& values = response_data.get<picojson::object>();
     
+    
+    //DB
+    sqlite3* useDataBase = NULL;
+    char* errorMessage = NULL;
+    
+    auto filePath = cocos2d::FileUtils::getInstance()->getWritablePath();
+    filePath.append("test.db");
+    auto status = sqlite3_open(filePath.c_str(), &useDataBase);
+    CCASSERT(status == SQLITE_OK, "exist database");
+    
+        
     //id
     auto id = Value(values["id"].get<double>());
     CCLOG("%d", id.asInt());

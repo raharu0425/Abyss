@@ -37,6 +37,7 @@ bool TitleConditionManager::init(void)
 bool TitleConditionManager::isConditionIdle() {return this->_condition == kConditionIdle;}
 bool TitleConditionManager::isConditionLoading() {return this->_condition == kConditionLoading;}
 bool TitleConditionManager::isConditionProcessing() {return this->_condition == kConditionProcessing;}
+bool TitleConditionManager::isConditionCompleted() {return this->_condition == kConditionCompleted;}
 
 //読み込み分類
 bool TitleConditionManager::isLoadNone() {return this->_loading == kLoadNone;}

@@ -14,7 +14,6 @@ static HTTPManager *s_Shared = nullptr;
 HTTPManager* HTTPManager::getInstance()
 {
     s_Shared = new HTTPManager();
-    s_Shared->retain();
     return s_Shared;
 }
 

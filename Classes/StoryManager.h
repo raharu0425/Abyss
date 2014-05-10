@@ -12,6 +12,9 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "sqlite3.h"
+#include "picojson.h"
+
+USING_NS_CC;
 
 class StoryManager : public cocos2d::Ref
 {
@@ -26,6 +29,10 @@ public:
     
     //初期テーブルの作成
     void createInitTables();
+    
+    //ストーリーの追加
+    void addStory(picojson::value values);
+    
 };
 
 #endif /* defined(__Abyss__StoryManager__) */
