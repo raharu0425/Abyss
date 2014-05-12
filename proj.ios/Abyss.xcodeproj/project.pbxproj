@@ -26,6 +26,7 @@
 		342E9E17191781A600C08852 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 342E9E16191781A600C08852 /* libsqlite3.0.dylib */; };
 		348EDC2C191256BF00DBF75A /* Title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 348EDC2A191256BF00DBF75A /* Title.cpp */; };
 		34FD6DE1191E33A4002D2F3E /* Overview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FD6DDF191E33A4002D2F3E /* Overview.cpp */; };
+		34FD6DEC191F57A5002D2F3E /* Story.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34FD6DEA191F57A5002D2F3E /* Story.cpp */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
 		503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FF17EB989F00D1A890 /* RootViewController.mm */; };
@@ -188,6 +189,8 @@
 		348EDC2B191256BF00DBF75A /* Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Title.h; path = ../Classes/Title.h; sourceTree = "<group>"; };
 		34FD6DDF191E33A4002D2F3E /* Overview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Overview.cpp; path = ../Classes/Overview.cpp; sourceTree = "<group>"; };
 		34FD6DE0191E33A4002D2F3E /* Overview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Overview.h; path = ../Classes/Overview.h; sourceTree = "<group>"; };
+		34FD6DEA191F57A5002D2F3E /* Story.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Story.cpp; path = ../Classes/Story.cpp; sourceTree = "<group>"; };
+		34FD6DEB191F57A5002D2F3E /* Story.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Story.h; path = ../Classes/Story.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -288,6 +291,8 @@
 				342A94AB191C7CAF0006AB6F /* HTTPManager.h */,
 				342A94AD191CC55A0006AB6F /* StoryManager.cpp */,
 				342A94AE191CC55A0006AB6F /* StoryManager.h */,
+				34FD6DEA191F57A5002D2F3E /* Story.cpp */,
+				34FD6DEB191F57A5002D2F3E /* Story.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -591,6 +596,7 @@
 				342A94AC191C7CAF0006AB6F /* HTTPManager.cpp in Sources */,
 				342A94A2191A3B900006AB6F /* TitleConditionManager.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
+				34FD6DEC191F57A5002D2F3E /* Story.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

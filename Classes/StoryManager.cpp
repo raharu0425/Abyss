@@ -68,6 +68,32 @@ void StoryManager::createInitTables()
     if( sts5 != SQLITE_OK ) CCLOG("create index failed : %s", errorMessage);
 }
 
+//複数の取得
+std::vector<Story*> StoryManager::gets()
+{
+    sqlite3_stmt* stmt;
+    auto sql = "SELECT * FROM `story` WHERE `id` IN(10000101,10000201)";
+    const char *pzTest;
+    sqlite3_prepare_v2(useDataBase, sql, std::strlen(sql), &stmt, &pzTest);
+    sqlite3_reset(stmt);
+    
+    std::vector<Story*> storyies;
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        auto story = Story::getInstance();
+        story->setId(sqlite3_column_int(stmt, 0));
+        story->setHash((char*)sqlite3_column_text(stmt, 1));
+        story->setTitle((char*)sqlite3_column_text(stmt, 2));
+        story->setText((char*)sqlite3_column_text(stmt, 3));
+        story->setNumer(sqlite3_column_int(stmt, 4));
+        story->setNumberMax(sqlite3_column_int(stmt, 5));
+        
+        storyies.push_back(story);
+    }
+    sqlite3_finalize(stmt);
+    
+    return storyies;
+}
+
 
 //ストーリーの作成
 void StoryManager::addStory(picojson::value pico_value)

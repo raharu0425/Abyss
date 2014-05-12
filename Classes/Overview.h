@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "cocos2d.h"
+#include "StoryManager.h"
 
 USING_NS_CC;
 
@@ -21,5 +22,7 @@ public:
     static cocos2d::Scene* createScene();
     virtual bool init();
     CREATE_FUNC(Overview);
+    
+    StoryManager *storyManager;
 };
 #endif /* defined(__Abyss__Overview__) */

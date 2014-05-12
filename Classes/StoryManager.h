@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "sqlite3.h"
 #include "picojson.h"
+#include "Story.h"
 
 USING_NS_CC;
 
@@ -26,6 +27,8 @@ public:
     //Method
     static StoryManager* getInstance();
     bool init();
+    
+    std::vector<Story*> gets();
     
     //初期テーブルの作成
     void createInitTables();
