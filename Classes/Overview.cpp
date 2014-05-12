@@ -54,11 +54,10 @@ bool Overview::init()
     auto label = LabelTTF::create(string_txt, "Arial Rounded MT Bold", 15);
     label->setHorizontalAlignment(TextHAlignment::LEFT);
     label->setDimensions(Size(window_size.width,0));
-    label->setDimensions(Size(label->getContentSize().width, label->getContentSize().height));
+    label->setDimensions(Size(label->getContentSize().width - 10, label->getContentSize().height));
     
     scroll->setContainer(label);
-    scroll->setContentOffset(Point(0, 0 - (label->getContentSize().height - window_size.height)));
-    
+    scroll->setContentOffset(Point(10, 0 - (label->getContentSize().height - window_size.height)));
     /*
     while (it != story_list.end()) {
         auto text = LabelTTF::create(string_txt, "Arial Rounded MT Bold", 15);
