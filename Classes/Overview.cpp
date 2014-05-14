@@ -34,7 +34,7 @@ bool Overview::init()
     //リスト
     story_list = storyManager->gets();
     
-    
+    /*
     
     //画面サイズサイズを取得
     window_size = Director::getInstance()->getWinSize();
@@ -50,10 +50,12 @@ bool Overview::init()
     tableView->setDelegate(this);
     addChild(tableView);
     tableView->reloadData();
+     */
      
     return true;
 }
 
+/*
 // セルのサイズを設定（横：画面いっぱい / 縦：ここでは画像サイズに合わせて100に設定）
 Size Overview::cellSizeForTable(TableView *table){
     return Size(window_size.width, 25);
@@ -125,3 +127,4 @@ void Overview::tableCellUnhighlight(TableView* table, TableViewCell* cell)
     auto background = (Sprite*) cell->getChildByTag(100);
     background->setOpacity(255);
 }
+ */

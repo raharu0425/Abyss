@@ -17,9 +17,9 @@
 USING_NS_CC;
 using namespace extension;
 
-class Overview : public Layer,
-                 public TableViewDataSource,
-                 public TableViewDelegate
+class Overview : public Layer
+                 //public TableViewDataSource,
+                 //public TableViewDelegate
 {
     Size window_size;
 public:
@@ -29,6 +29,8 @@ public:
     StoryManager *storyManager;
     std::vector<Story*> story_list;
     int story_count = 0;
+    
+    /*
     
     //TableViewDataSourceの抽象クラス
     virtual Size cellSizeForTable(TableView* table);
@@ -45,6 +47,7 @@ public:
     //TableViewDelegateが継承しているScrollViewの抽象クラス
     virtual void scrollViewDidScroll(ScrollView* view){};
     virtual void scrollViewDidZoom(ScrollView* view){};
+     */
     
     CREATE_FUNC(Overview);
     
