@@ -36,6 +36,9 @@ public:
     //ストーリーの追加
     void addStory(picojson::value values);
     
+    //ストーリのカウント数
+    int getStoryCount();
+    
 };
 
 #endif /* defined(__Abyss__StoryManager__) */

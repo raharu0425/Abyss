@@ -23,7 +23,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     //解像度
     glview->setDesignResolutionSize(320, 480, ResolutionPolicy::NO_BORDER);
-
+    
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -31,7 +31,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = Title::createScene();
+    auto scene = Overview::createScene();
 
     // run
     director->runWithScene(scene);

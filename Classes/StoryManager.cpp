@@ -72,7 +72,7 @@ void StoryManager::createInitTables()
 std::vector<Story*> StoryManager::gets()
 {
     sqlite3_stmt* stmt;
-    auto sql = "SELECT * FROM `story` WHERE `id` IN(10000101,10000201)";
+    auto sql = "select * from `story` group by `hash` order by `id`";
     const char *pzTest;
     sqlite3_prepare_v2(useDataBase, sql, std::strlen(sql), &stmt, &pzTest);
     sqlite3_reset(stmt);
@@ -134,4 +134,17 @@ void StoryManager::addStory(picojson::value pico_value)
     // stmtのSQLを実行
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
+}
+
+//ストーリー数の取得
+int StoryManager::getStoryCount()
+{
+    sqlite3_stmt* stmt;
+    char* sql = "select count(DISTINCT(`hash`)) as count from `story`";
+    const char *pzTest;
+    sqlite3_prepare_v2(useDataBase, sql, std::strlen(sql), &stmt, &pzTest);
+    sqlite3_reset(stmt);
+    
+    sqlite3_step(stmt);
+    return sqlite3_column_int(stmt, 0);;
 }

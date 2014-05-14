@@ -8,14 +8,13 @@
 
 #include "Overview.h"
 
-#include <extensions/cocos-ext.h>
-USING_NS_CC_EXT;
-
 Scene* Overview::createScene()
 {
     auto scene = Scene::create();
     auto layer = Overview::create();
     scene->addChild(layer);
+    
+
     return scene;
 }
 
@@ -25,53 +24,104 @@ bool Overview::init()
     //初期化
     if ( !Layer::init() ) return false;
     
-    //窓サイズを取得
-    window_size = Director::getInstance()->getWinSize();
     
-    //お話の取得
+    //ストーリー
     storyManager = StoryManager::getInstance();
     
-    auto story_list = storyManager->gets();
+    //話数
+    story_count = storyManager->getStoryCount();
     
-    /*
-    auto *scroll = ScrollView::create(window_size);
-    scroll->setDirection(ScrollView::Direction::VERTICAL);
-    addChild(scroll);
-     */
+    //リスト
+    story_list = storyManager->gets();
     
-    std::vector<Story*>::iterator it = story_list.begin();
     
-    //テスト文言
-    auto string_txt = "日本の地獄は自慢の地獄\n罪にあわせておもてなし\n(はい!)\n日本の地獄はじゅうろくしょう地獄!\n全部合わせて、にひゃくななじゅうにもあるーーーーーー!!\n\nここは地獄!地獄!素敵な地獄!\n地獄、じご、じご、じごくだよ～!!\n\nここは地獄!地獄!楽しい地獄!\n地獄、じご、じご、じごくだよ～!!\n\n等活(とうかつ)黒縄(こくじょう)衆合(しゅうごう)\n叫喚(きょうかん)\n大叫喚(だいきょうかん)\n焦熱(しょうねつ)に 大焦熱(だいしょうねつ) 阿鼻!！\n不喜処(ふきしょ)(に)瓮熟処(おうじゅくしょ)、\n如飛虫堕処(にょひちゅうだしょ)\n受苦無有数量処(じゅくむうすうりょうしょ)\n屎泥処(しでいしょ)(に)、刀輪処(とうりんしょ)\n多苦処(たくしょ)(に)闇冥処(あんみゅうしょ)(に)極苦処(ごくくしょ)\n\n頞部陀(あぶだ)、刺部陀(にらぶだ)\n頞听陀(あただ)、臛臛婆(かかば)、虎虎婆(ここば)\n嗢鉢羅(うばら)、(に)、鉢特摩(はどま)(に)摩訶鉢特摩(まかはどま)\n\n衆病処(しゅうびょうしょ)、(ったら) 雨鉄処(うてつしょ)、(ったら)\n悪杖処(あくじょうしょ)、黒色鼠狼処(こくしょくそうろうしょ)、\n針山、血の池、まだまだ色々!\n\n地獄はあるかもしれないよ!!\nこの世の行い気をつけてー!\n\nここは地獄!地獄!素敵な地獄!\n地獄、じご、じご、じごくだよ～!!\n\nここは地獄!地獄!楽しい地獄!\n地獄、じご、じご、じご、じご、じご、\nじご、じご、じご、じご、じご、じごくだよ～!!\n\n嗚呼～ \n";
     
-    //Scrollview
-    auto *scroll = ScrollView::create(window_size);
-    //スクロールする方向は縦のみ
-    scroll->setDirection(ScrollView::Direction::VERTICAL);
-    addChild(scroll);
+    //画面サイズサイズを取得
+    window_size = Director::getInstance()->getWinSize();
     
-    //Label
-    auto label = LabelTTF::create(string_txt, "Arial Rounded MT Bold", 15);
-    label->setHorizontalAlignment(TextHAlignment::LEFT);
-    label->setDimensions(Size(window_size.width,0));
-    label->setDimensions(Size(label->getContentSize().width - 10, label->getContentSize().height));
-    
-    scroll->setContainer(label);
-    scroll->setContentOffset(Point(10, 0 - (label->getContentSize().height - window_size.height)));
-    /*
-    while (it != story_list.end()) {
-        auto text = LabelTTF::create(string_txt, "Arial Rounded MT Bold", 15);
-        text->setHorizontalAlignment(TextHAlignment::LEFT);
-        text->setDimensions(Size(window_size.width,0));
-        text->setDimensions(Size(text->getContentSize().width, text->getContentSize().height));
-        scroll->setContainer(text);
+    TableView* tableView = TableView::create(this, Size(window_size.width / 100 * 80, window_size.height / 100 * 80));
+    //展開方向
+    tableView->setDirection(TableView::Direction::VERTICAL);
+    //表示順序上からしたへ
+    tableView->setVerticalFillOrder(TableView::VerticalFillOrder::TOP_DOWN);
+    tableView->setPosition(Point((window_size.width - tableView->getContentSize().width) / 2, 20));
+    tableView->setBounceable(false);
+    //追加
+    tableView->setDelegate(this);
+    addChild(tableView);
+    tableView->reloadData();
      
-        CCLOG("id:%d", it.operator*()->getId());
-        CCLOG("hash:%s", it.operator*()->getHash().c_str());
-        CCLOG("title:%s", it.operator*()->getTitle().c_str());
-        ++it;
-    }
-    */
-    
     return true;
+}
+
+// セルのサイズを設定（横：画面いっぱい / 縦：ここでは画像サイズに合わせて100に設定）
+Size Overview::cellSizeForTable(TableView *table){
+    return Size(window_size.width, 25);
+}
+
+// セルの内容を設定
+TableViewCell* Overview::tableCellAtIndex(TableView *table, ssize_t idx){
+    std::string id = StringUtils::format("%zd", idx);
+    std::string text = StringUtils::format("Line %zd", idx);
+    TableViewCell *cell = table->dequeueCell();
+    
+    cell = new TableViewCell();
+    cell->autorelease();
+    
+    
+    // セルの背景
+    auto background_color = Color3B(255,255,255);
+    if (idx%2) {
+        background_color = Color3B(200,200,200);
+    }
+    
+    Sprite* bg = Sprite::create();
+    bg->setAnchorPoint(Point(0, 0));
+    bg->setTextureRect(Rect(0, 0, window_size.width, 24));
+    bg->setColor(background_color);
+    bg->setTag(100);
+    cell->addChild(bg, 0);
+    
+    // ボーダーライン
+    Sprite* line = Sprite::create();
+    line->setAnchorPoint(Point(0, 0));
+    line->setTextureRect(Rect(0, 0, window_size.width, 1));
+    line->setColor(Color3B(0,0,0));
+    cell->addChild(line, 1);
+    
+    //Story取得
+    auto story = story_list.begin() + idx;
+    
+    // ID部分
+    auto *label_1 = LabelTTF::create(story.operator*()->getTitle().c_str(), "Arial", 16);
+    label_1->setAnchorPoint(Point(0, 0));
+    label_1->setPosition(Point(10, 0));
+    label_1->setColor(Color3B(0,0,0));
+    cell->addChild(label_1, 1);
+    return cell;
+}
+
+// セルの数を設定。インデックスは0から始まるので、この場合は0〜4になります。
+ssize_t Overview::numberOfCellsInTableView(TableView *table)
+{
+    return story_count;
+}
+
+// セルを選択したときの処理。ログが出るようにしています。
+void Overview::tableCellTouched(TableView* table, TableViewCell* cell){
+    CCLOG("%ziのセルがタッチされました", cell->getIdx());
+}
+
+//タッチされたとき
+void Overview::tableCellHighlight(TableView* table, TableViewCell* cell)
+{
+    auto background = (Sprite*) cell->getChildByTag(100);
+    background->setOpacity(125);
+}
+
+//離れたとき
+void Overview::tableCellUnhighlight(TableView* table, TableViewCell* cell)
+{
+    auto background = (Sprite*) cell->getChildByTag(100);
+    background->setOpacity(255);
 }
