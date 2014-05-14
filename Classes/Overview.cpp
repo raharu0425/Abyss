@@ -23,7 +23,6 @@ bool Overview::init()
     //初期化
     if ( !Layer::init() ) return false;
     
-    /*
     
     //ストーリー
     storyManager = StoryManager::getInstance();
@@ -32,7 +31,7 @@ bool Overview::init()
     story_count = storyManager->getStoryCount();
     
     //リスト
-    story_list = storyManager->gets();*/
+    story_list = storyManager->gets();
     
     //画面サイズサイズを取得
     window_size = Director::getInstance()->getWinSize();
@@ -48,7 +47,6 @@ bool Overview::init()
     tableView->setDelegate(this);
     addChild(tableView);
     tableView->reloadData();
-     
     return true;
 }
 
@@ -87,7 +85,6 @@ TableViewCell* Overview::tableCellAtIndex(TableView *table, ssize_t idx){
     line->setColor(Color3B(0,0,0));
     cell->addChild(line, 1);
     
-    /*
     //Story取得
     auto story = story_list.begin() + idx;
     
@@ -97,7 +94,6 @@ TableViewCell* Overview::tableCellAtIndex(TableView *table, ssize_t idx){
     label_1->setPosition(Point(10, 0));
     label_1->setColor(Color3B(0,0,0));
     cell->addChild(label_1, 1);
-     */
      
     return cell;
 }
@@ -105,8 +101,7 @@ TableViewCell* Overview::tableCellAtIndex(TableView *table, ssize_t idx){
 // セルの数を設定。インデックスは0から始まるので、この場合は0〜4になります。
 ssize_t Overview::numberOfCellsInTableView(TableView *table)
 {
-    //return story_count;
-    return 4;
+    return story_count;
 }
 
 // セルを選択したときの処理。ログが出るようにしています。
@@ -117,13 +112,13 @@ void Overview::tableCellTouched(TableView* table, TableViewCell* cell){
 //タッチされたとき
 void Overview::tableCellHighlight(TableView* table, TableViewCell* cell)
 {
-    //auto background = (Sprite*) cell->getChildByTag(100);
-    //background->setOpacity(125);
+    auto background = (Sprite*) cell->getChildByTag(100);
+    background->setOpacity(125);
 }
 
 //離れたとき
 void Overview::tableCellUnhighlight(TableView* table, TableViewCell* cell)
 {
-    //auto background = (Sprite*) cell->getChildByTag(100);
-    //background->setOpacity(255);
+    auto background = (Sprite*) cell->getChildByTag(100);
+    background->setOpacity(255);
 }
