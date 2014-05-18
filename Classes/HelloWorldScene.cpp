@@ -1,6 +1,6 @@
 #include "HelloWorldScene.h"
-#include "picojson.h"
-#include "sqlite3.h"
+#include "library/json/picojson.h"
+#include "library/sqlite/sqlite3.h"
 
 Scene* HelloWorld::createScene()
 {

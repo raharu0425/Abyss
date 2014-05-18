@@ -11,8 +11,8 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include "sqlite3.h"
-#include "picojson.h"
+#include "library/sqlite/sqlite3.h"
+#include "library/json/picojson.h"
 #include "Story.h"
 
 USING_NS_CC;

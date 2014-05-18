@@ -11,9 +11,9 @@
 
 #include <iostream>
 #include "cocos2d.h"
-#include <HttpRequest.h>
-#include <HttpClient.h>
-#include "picojson.h"
+#include "network/HttpRequest.h"
+#include "network/HttpClient.h"
+#include "library/json/picojson.h"
 
 
 USING_NS_CC;

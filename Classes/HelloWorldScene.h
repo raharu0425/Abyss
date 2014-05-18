@@ -3,8 +3,8 @@
 
 #include "cocos2d.h"
 
-#include <HttpRequest.h>
-#include <HttpClient.h>
+#include "network/HttpRequest.h"
+#include "network/HttpClient.h"
 
 
 USING_NS_CC;
