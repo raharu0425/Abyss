@@ -100,7 +100,7 @@ Story* StoryManager::getByid(int id, int number = 1)
 std::vector<Story*> StoryManager::gets()
 {
     sqlite3_stmt* stmt;
-    auto sql = "select * from `story` group by `hash` order by `id`";
+    auto sql = "select * from `story` WHERE `number` = 1";
     const char *pzTest;
     sqlite3_prepare_v2(useDataBase, sql, std::strlen(sql), &stmt, &pzTest);
     sqlite3_reset(stmt);

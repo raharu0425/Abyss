@@ -36,7 +36,7 @@ bool StoryView::init()
     
     //Scrollview
     auto *scroll = ScrollView::create(Size(window_size.width, window_size.height * 0.8));
-    scroll->setDirection(ScrollView::Direction::VERTICAL);
+    scroll->setDirection(ScrollView::Direction::BOTH);
     addChild(scroll);
     
     //Label
@@ -68,6 +68,7 @@ bool StoryView::init()
 void StoryView::loadStory()
 {
     auto story_id = userDefault->getIntegerForKey("view_story_id");
+    CCLOG("ssss:%d", story_id);
     story = storyManager->getByid(story_id, 1);
 }
 
