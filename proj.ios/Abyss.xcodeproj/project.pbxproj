@@ -24,6 +24,7 @@
 		342A94AC191C7CAF0006AB6F /* HTTPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342A94AA191C7CAF0006AB6F /* HTTPManager.cpp */; };
 		342A94AF191CC55A0006AB6F /* StoryManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342A94AD191CC55A0006AB6F /* StoryManager.cpp */; };
 		342E9E17191781A600C08852 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 342E9E16191781A600C08852 /* libsqlite3.0.dylib */; };
+		345B746C192896690013D92D /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 345B746B192896690013D92D /* button.png */; };
 		34B4C46E192877D30025E32D /* Title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34B4C46C192877D30025E32D /* Title.cpp */; };
 		34B4C4711928782B0025E32D /* Overview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34B4C46F1928782B0025E32D /* Overview.cpp */; };
 		34B4C47F19287B470025E32D /* library in Resources */ = {isa = PBXBuildFile; fileRef = 34B4C47E19287B470025E32D /* library */; };
@@ -186,6 +187,7 @@
 		342A94AD191CC55A0006AB6F /* StoryManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoryManager.cpp; path = ../Classes/StoryManager.cpp; sourceTree = "<group>"; };
 		342A94AE191CC55A0006AB6F /* StoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoryManager.h; path = ../Classes/StoryManager.h; sourceTree = "<group>"; };
 		342E9E16191781A600C08852 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/usr/lib/libsqlite3.0.dylib; sourceTree = DEVELOPER_DIR; };
+		345B746B192896690013D92D /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		34B4C46C192877D30025E32D /* Title.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Title.cpp; sourceTree = "<group>"; };
 		34B4C46D192877D30025E32D /* Title.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Title.h; sourceTree = "<group>"; };
 		34B4C46F1928782B0025E32D /* Overview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Overview.cpp; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				345B746B192896690013D92D /* button.png */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 				1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */,
@@ -579,6 +582,7 @@
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				345B746C192896690013D92D /* button.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,

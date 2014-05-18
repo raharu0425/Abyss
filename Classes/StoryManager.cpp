@@ -68,6 +68,34 @@ void StoryManager::createInitTables()
     if( sts5 != SQLITE_OK ) CCLOG("create index failed : %s", errorMessage);
 }
 
+//取得
+Story* StoryManager::getByid(int id, int number = 1)
+{
+    auto story = Story::getInstance();
+    
+    
+    sqlite3_stmt* stmt;
+    char* sql = "SELECT * FROM `story` WHERE `id`= ? AND `number` = ?";
+    const char *pzTest;
+    sqlite3_prepare_v2(useDataBase, sql, std::strlen(sql), &stmt, &pzTest);
+    sqlite3_reset(stmt);
+    
+    sqlite3_bind_int(stmt, 1, id);
+    sqlite3_bind_int(stmt, 2, number);
+    sqlite3_step(stmt);
+    
+    story->setId(sqlite3_column_int(stmt, 0));
+    story->setHash((char*)sqlite3_column_text(stmt, 1));
+    story->setTitle((char*)sqlite3_column_text(stmt, 2));
+    story->setText((char*)sqlite3_column_text(stmt, 3));
+    story->setNumer(sqlite3_column_int(stmt, 4));
+    story->setNumberMax(sqlite3_column_int(stmt, 5));
+    
+    sqlite3_finalize(stmt);
+    
+    return story;
+}
+
 //複数の取得
 std::vector<Story*> StoryManager::gets()
 {

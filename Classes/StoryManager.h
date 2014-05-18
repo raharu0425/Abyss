@@ -28,6 +28,7 @@ public:
     static StoryManager* getInstance();
     bool init();
     
+    Story* getByid(int id, int number);
     std::vector<Story*> gets();
     
     //初期テーブルの作成

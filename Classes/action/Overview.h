@@ -21,6 +21,8 @@ class Overview : public Layer,
                  public TableViewDataSource,
                  public TableViewDelegate
 {
+    // dependecies
+    UserDefault* userDefault;
     Size window_size;
 public:
     static cocos2d::Scene* createScene();

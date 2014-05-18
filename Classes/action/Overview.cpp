@@ -24,6 +24,8 @@ bool Overview::init()
     //初期化
     if ( !Layer::init() ) return false;
     
+    //userDefaultの読み込み
+    userDefault = UserDefault::getInstance();
     
     //ストーリー
     storyManager = StoryManager::getInstance();
@@ -108,6 +110,8 @@ ssize_t Overview::numberOfCellsInTableView(TableView *table)
 // セルを選択したときの処理。ログが出るようにしています。
 void Overview::tableCellTouched(TableView* table, TableViewCell* cell)
 {
+    auto story = story_list.begin() + cell->getIdx();
+    userDefault->setIntegerForKey("view_story_id", story.operator*()->getId());
     Director::getInstance()->replaceScene(TransitionFade::create(2.0f, StoryView::createScene()));
 }
 
